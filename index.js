@@ -14,11 +14,16 @@ app.get('/', function (req, res) {
 });
 
 app.post("/api/fileanalys", upload.single('upfile'), (req, res) => {
-  return res.json({
-    "name": req.file.originalname,
-    "type": req.file.mimetype,
-    "size": req.file.size
-  })
+  try {
+    return res.json({
+      "name": req.file.originalname,
+      "type": req.file.mimetype,
+      "size": req.file.size
+    })
+  } catch {
+    return res.status(500).json({"error": "Something Gone Wrong"})
+  }
+
 });
 
 
